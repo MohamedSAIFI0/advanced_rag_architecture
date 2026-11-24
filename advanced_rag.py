@@ -48,7 +48,7 @@ Question: {query}
 Alternative questions:"""
 
     try:
-        response = llm(prompt)
+        response = llm.invoke(prompt)
     except Exception:
         return [query]
 
@@ -91,7 +91,7 @@ Passage:
 
 Score:"""
         try:
-            response = llm(prompt)
+            response = llm.invoke(prompt)
             match = re.search(r"\d+(?:\.\d+)?", response)
             score = float(match.group()) if match else 0.0
             score = min(max(score, 0.0), 10.0)
@@ -140,7 +140,7 @@ if query and st.session_state.db:
             # ---------- MULTI-SEARCH ----------
             all_docs = []
             for q in expanded_queries:
-                docs = retriever.get_relevant_documents(q)
+                docs = retriever.invoke(q)
                 all_docs.extend(docs)
 
             # ---------- TODO 4 : RERANK DOCUMENTS ----------
@@ -153,7 +153,7 @@ if query and st.session_state.db:
         else:
             # RAG classique : une seule recherche, pas de reranking
             expanded_queries = [query]
-            selected_docs = retriever.get_relevant_documents(query)
+            selected_docs = retriever.invoke(query)
 
         # ---------- FINAL PROMPT ----------
         context = "\n\n".join([doc.page_content for doc in selected_docs])
@@ -169,7 +169,7 @@ Question:
 {query}
 """
 
-        answer = st.session_state.llm(prompt)
+        answer = st.session_state.llm.invoke(prompt)
 
         st.write("### Answer")
         st.write(answer)
