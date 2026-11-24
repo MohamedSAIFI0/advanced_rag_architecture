@@ -25,13 +25,6 @@ Il filtre les chunks non pertinents avant la génération.
 La **Query Expansion** améliore le rappel, c'est-à-dire la capacité
 à retrouver le bon passage.
 
-**Les deux fonctionnent mieux ensemble.**
-
-### Conseil pour le rapport
-
-Posez les mêmes questions avec la case « RAG avancé »
-cochée puis décochée, y compris des questions dont la réponse
-n'est pas dans le PDF.
 
 ## 3. Pourquoi ne pas simplement changer de modèle LLM ?
 
